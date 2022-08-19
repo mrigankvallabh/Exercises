@@ -1,4 +1,4 @@
-package DP;
+package interviews;
 
 import java.util.Arrays;
 
