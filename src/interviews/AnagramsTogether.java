@@ -17,8 +17,8 @@ public class AnagramsTogether {
         Map<String, List<String>> strMap = new HashMap<>();
 
         for (String w : words) {
-            int[] array = w.chars().sorted().toArray();
-            String key = new String(array, 0, array.length);
+            int[] charSorted = w.chars().sorted().toArray();
+            String key = new String(charSorted, 0, charSorted.length);
             if (!strMap.containsKey(key)) {
                 List<String> tList = new ArrayList<>();
                 strMap.put(key, tList);
