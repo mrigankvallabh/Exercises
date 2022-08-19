@@ -1,14 +1,12 @@
 package matrix;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.ArrayList;
 
-@SuppressWarnings("unused")
 public class Matrix<T extends Number> {
-  private int nRow;
-  private int nCol;
-  private T[] elements;
-  private T[][] elementsGrid;
+  private final int nRow;
+  private final int nCol;
+  private final T[] elements;
+  private final ArrayList<ArrayList<T>> elementsGrid = new ArrayList<>();
 
   public Matrix(int nRow, T[] elements) {
     this(nRow, nRow, elements);
@@ -23,17 +21,36 @@ public class Matrix<T extends Number> {
     this.nCol = nCol;
     this.elements = elements;
 
-    @SuppressWarnings("unchecked")
-    T[][] t = (T[][]) Array.newInstance(elements.getClass().getComponentType(), new int[] { nRow, nCol });
-
-    elementsGrid = t;
     for (int i = 0; i < nRow; i++) {
+      ArrayList<T> row = new ArrayList<>();
       for (int j = 0; j < nCol; j++) {
-        elementsGrid[i][j] = elements[i * nCol + j];
+        row.add(elements[i * nCol + j]);
       }
+      elementsGrid.add(row);
     }
-    System.out.println(Arrays.deepToString(elementsGrid));
+  
+    elementsGrid.trimToSize();
+  }
 
+  public int getSize() {
+    return nRow * nCol;
+  }
+
+  public T getElementAt(int i, int j) {
+    if (i >= nRow || j >= nCol) {
+      throw new IllegalArgumentException("Invalid index (" + i + ", " + j + "): Indexes are 0 based!");
+    }
+    return elements[i * nCol + j];
+  }
+
+  @Override
+  public String toString() {
+    var sb = new StringBuilder("Matrix (" + nRow + "X" + nCol + ") [\n");
+    for (var r : elementsGrid) {
+      sb.append("\t" + r + "\n");
+    }
+    sb.append("]\n");
+    return sb.toString();
   }
 
   public static void main(String[] args) {
@@ -44,6 +61,7 @@ public class Matrix<T extends Number> {
     };
 
     var matrix = new Matrix<Double>(3, 3, m);
+    System.out.println(matrix.getElementAt(2, 1));
   }
 
   public static void reflectX(int[] m) {
