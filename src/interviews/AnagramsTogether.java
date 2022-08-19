@@ -27,6 +27,6 @@ public class AnagramsTogether {
         }
 
         String[] array = strMap.values().stream().flatMap(Collection::stream).toList().toArray(new String[0]);
-        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(array).replaceAll("\\[|]", ""));
     }
 }
