@@ -7,16 +7,17 @@ public class P14LongestCommonPrefix {
     System.out.println(commonPrefix);
   }
 
-  private static String longestCommonPrefix(String[] strings) {
-    if (strings.length == 0)
+  private static String longestCommonPrefix(String[] strs) {
+    if (strs.length == 0)
       return "";
-    String prefix = strings[0];
-    for (int i = 1; i < strings.length; i++)
-      while (strings[i].indexOf(prefix) != 0) {
+    String prefix = strs[0];
+    for (int i = 1; i < strs.length; i++) {
+      while (!strs[i].startsWith(prefix)) {
         prefix = prefix.substring(0, prefix.length() - 1);
         if (prefix.isEmpty())
           return "";
       }
+    }
     return prefix;
   }
 }
